@@ -2,7 +2,16 @@ const Category = require('../models/category');
 const async = require('async');
 
 exports.category_list = (req, res, next) => {
-    res.send("NOT IMPLEMENTED: category_list");
+    Category.find({})
+        .sort({ name: 1})
+        .exec(function(err, categories) {
+            if (err) {
+                return next(err);
+            }
+            res.render('./category/category_list', {
+                categories: categories,
+            });
+        });
 }
 
 exports.category_detail = (req, res, next) => {

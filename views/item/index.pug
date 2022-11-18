@@ -1,39 +1,39 @@
 extends ../layout
 
 block content
-		div.container
-				div.row.align-items-center
-						for brand in brands
-								div.col
-										a(href=brand.url) 
-												img.col(src=brand.image style='width: 170px;')
-        
-		br
-		br
-		div.container
-			div.row.align-items-center
-				for category in categories 
-						div.col.container 
-							div.row.justify-content-center
-								a(href=category.url) 
-									button.btn.btn-dark #{category.name} 
-						br
-		br
-		br
+	div.container
+		div.row.align-items-center
+			for brand in brands
+				div.col
+					a(href=brand.url) 
+						img.col(src=brand.image style='width: 170px;')
 
-
-		div.container
-			div.row.justify-content-center
-				for item in items 
-					div.col.container
-						div.row.justify-content-center
-							div.card(style="width: 15rem;")
-									img.card-img-top(src=item.image alt="Phone")
-									div.card-body
-										a.card-title(href=item.url) #{item.name} 
-										p.card-text #{item.description} 
-										p.card-text #{item.brand.name} 
-										p.card-text #{item.price}
+	br
+	br
+	div.container
+		div.row.align-items-center
+			for category in categories 
+				div.col.container 
+					div.row.justify-content-center
+						a(href=category.url) 
+							button.btn.btn-dark #{category.name} 
 				br
-		br
-		br
+	br
+	br
+
+
+	div.container
+		div.row.justify-content-center
+			for item in items 
+				div.col.container
+					div.row.justify-content-center
+						div.card(style="width: 15rem;")
+							img.card-img-top(src=item.image alt="Phone")
+							div.card-body
+								a.card-title(href=item.url) #{item.name} 
+								p.card-text #{item.description} 
+								p.card-text #{item.brand.name} 
+								p.card-text #{item.price}
+			br
+	br
+	br

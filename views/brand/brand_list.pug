@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+    div.container
+        for brand in brands
+            div.row.align-items-center
+                a(href=brand.url) 
+                    img.col(src=brand.image style='width: 300px;')
+            br
+            br

@@ -2,7 +2,16 @@ const Brand = require('../models/brand');
 const async = require('async');
 
 exports.brand_list = (req, res, next) => {
-    res.send("NOT IMPLEMENTED: brand_list");
+    Brand.find({})
+        .sort({ name: 1})
+        .exec(function(err, brands) {
+            if (err) {
+                return next(err);
+            }
+            res.render('./brand/brand_list', {
+                brands: brands,
+            })
+        });
 }
 
 exports.brand_detail = (req, res, next) => {

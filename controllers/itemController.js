@@ -30,7 +30,18 @@ exports.index = (req, res, next) => {
 }
 
 exports.item_list = (req, res, next) => {
-    res.send("NOT IMPLEMENTED: item_list");
+    Item.find({})
+        .sort({ name: 1})
+        .populate("brand")
+        .populate("category")
+        .exec(function(err, items) {
+            if (err) {
+                return next(err);
+            }
+            res.render('./item/item_list', {
+                items: items,
+            })
+        });
 }
 
 exports.item_detail = (req, res, next) => {

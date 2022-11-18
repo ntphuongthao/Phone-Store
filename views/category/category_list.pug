@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+    br
+    br
+    div.container
+        div.row.align-items-center
+            for category in categories 
+                div.col.container 
+                    div.row.justify-content-center
+                        a(href=category.url) 
+                            button.btn.btn-dark #{category.name} 
+                br
+
+    br
+    br
