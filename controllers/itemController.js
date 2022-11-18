@@ -1,6 +1,10 @@
 const Item = require('../models/item');
 const async = require('async');
 
+exports.index = (req, res, next) => {
+    res.send("NOT IMPLEMENTED: index");
+}
+
 exports.item_list = (req, res, next) => {
     res.send("NOT IMPLEMENTED: item_list");
 }
