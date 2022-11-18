@@ -3,8 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
+const local_uri = "mongodb+srv://thaonguyen:Ntpt1717@phonestore.sqbcmr5.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URL || local_uri;
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+  console.log('MongoDB Connected Successfully...!');
+})
+.catch(err => console.log(err));
+
 
 var app = express();
 

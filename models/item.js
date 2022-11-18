@@ -35,14 +35,10 @@ const ItemSchema = new Schema({
         required: true,
         min: 0
     },
-    lastUpdated: {
-        type: Date,
-        required: true
-    }
 });
 
 ItemSchema.virtual("url").get(function() {
     return `/items/${this._id}`;
 });
 
-module.export = mongoose.model("Item", ItemSchema);
+module.exports = mongoose.model("Item", ItemSchema);
