@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema();
+const Schema = mongoose.Schema;
 
 const ItemSchema = new Schema({
     name: {
@@ -32,7 +32,7 @@ const ItemSchema = new Schema({
     },
     numberInStock: {
         type: Number,
-        required: True,
+        required: true,
         min: 0
     },
     lastUpdated: {

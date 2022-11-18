@@ -8,12 +8,6 @@ const CategorySchema = new Schema({
         required: true,
         minLength: 1,
         maxLength: 100,
-    },
-    description: {
-        type: String,
-        required: true,
-        minLength: 5,
-        maxLength: 500,
     }
 });
 
