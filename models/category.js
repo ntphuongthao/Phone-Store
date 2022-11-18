@@ -8,7 +8,7 @@ const CategorySchema = new Schema({
         required: true,
         minLength: 1,
         maxLength: 100,
-    }
+    },
 });
 
 CategorySchema.virtual("url").get(function() {

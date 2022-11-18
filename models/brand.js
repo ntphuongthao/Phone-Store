@@ -9,6 +9,10 @@ const BrandSchema = new Schema({
         maxLength: 150,
         required: true,
     },
+    image: {
+        type: String,
+        required: true,
+    }
 });
 
 BrandSchema.virtual("url").get(function() {
