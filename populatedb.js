@@ -109,7 +109,7 @@ function createBrands(cb) {
 
 
 function createCategories(cb) {
-    async.parallel([
+    async.series([
         function(callback) {
           CategoryCreate("Phone", callback);
         },

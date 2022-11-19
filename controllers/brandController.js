@@ -1,5 +1,7 @@
 const Brand = require('../models/brand');
+const Item = require('../models/item');
 const async = require('async');
+const mongoose = require('mongoose');
 
 exports.brand_list = (req, res, next) => {
     Brand.find({})
@@ -15,7 +17,35 @@ exports.brand_list = (req, res, next) => {
 }
 
 exports.brand_detail = (req, res, next) => {
-    res.send("NOT IMPLEMENTED: brand_detail");
+    const isValid = mongoose.Types.ObjectId.isValid(req.params.id);
+    if (!isValid) {
+        const err = new Error("Brand not found");
+        err.status = 404;
+        return next(err);
+    }
+
+    async.parallel(
+        {
+            brand(callback) {
+                Brand.findById(req.params.id).exec(callback);
+            },
+            brand_items(callback) {
+                Item.find({ brand: req.params.id })
+                    .populate("brand")
+                    .populate("category")
+                    .exec(callback);
+            }
+        },
+        function(err, results) {
+            if (err) {
+                return next(err);
+            }
+            res.render("./brand/brand_detail", {
+                brand: results.brand,
+                brand_items: results.brand_items,
+            });
+        }
+    );
 }
 
 exports.brand_create_get = (req, res, next) => {

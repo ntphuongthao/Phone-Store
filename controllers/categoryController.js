@@ -1,5 +1,7 @@
 const Category = require('../models/category');
+const Item = require('../models/item');
 const async = require('async');
+const mongoose = require('mongoose');
 
 exports.category_list = (req, res, next) => {
     Category.find({})
@@ -15,7 +17,34 @@ exports.category_list = (req, res, next) => {
 }
 
 exports.category_detail = (req, res, next) => {
-    res.send("NOT IMPLEMENTED: category_detail");
+    const isValid = mongoose.Types.ObjectId.isValid(req.params.id);
+    if (!isValid) {
+        const err = new Error("Category not found");
+        err.status = 404;
+        return next(err);
+    }
+ 
+    async.parallel(
+        {
+            category(cb) {
+                Category.findById(req.params.id).exec(cb);
+            },
+            category_items(cb) {
+                Item.find({ category: req.params.id })
+                    .populate("brand")
+                    .exec(cb)
+            },
+        },
+        function(err, results) {
+            if (err) {
+                return next(err);
+            }
+            res.render("./category/category_detail", {
+                category: results.category,
+                category_items: results.category_items,
+            });
+        }
+    );
 }
 
 exports.category_create_get = (req, res, next) => {
