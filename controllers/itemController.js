@@ -2,6 +2,7 @@ const Item = require('../models/item');
 const Brand = require('../models/brand');
 const Category = require('../models/category');
 const async = require('async');
+const mongoose = require('mongoose');
 
 exports.index = (req, res, next) => {
     async.parallel(
@@ -45,7 +46,23 @@ exports.item_list = (req, res, next) => {
 }
 
 exports.item_detail = (req, res, next) => {
-    res.send("NOT IMPLEMENTED: item_detail");
+    const isValid = mongoose.Types.ObjectId.isValid(req.params.id);
+    if (!isValid) {
+        var err = new Error("Item not found!");
+        err.status = 404;
+        return next(err);
+    }
+    Item.findById(req.params.id)
+        .populate("brand")
+        .populate("category")
+        .exec(function(err, item) {
+            if (err) {
+                return next(err);
+            }
+            res.render("./item/item_detail", {
+                item: item,
+            });
+        });
 }
 
 exports.item_create_get = (req, res, next) => {

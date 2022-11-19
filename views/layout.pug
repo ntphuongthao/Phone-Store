@@ -9,9 +9,16 @@ html(lang='en')
 		script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js", integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV", crossorigin="anonymous")
 		link(rel='stylesheet', href='/stylesheets/style.css')
 	body
-		nav.navbar.navbar-expand-lg.navbar-light.bg-light
+		nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
 			block sidebar
-				a.navbar-brand(href='/index') NT Phuong Thao Store
+				a.navbar-brand(href='/index')
+					img(src="/images/Amazon_logo.svg" alt="Amazon's logo" style="width: 8rem;")
+				.menu-item.hover
+					img(src="/images/united-states.svg" style='width: 5rem;')
+				form.form-inline(action="/index")
+					input.form-control(type="search" placeholder="This will temporarily not working..." aria-label="Search")
+					button.btn.btn-warning.my-2.my-sm-0(type="submit")
+						img(src="/images/look.svg" alt="Search" style="width: 20px;")
 
 				div.collapse.navbar-collapse.d-flex.p-2.bd-highlight.justify-content-end#navbarSupportedContent
 					div
@@ -22,5 +29,6 @@ html(lang='en')
 								a.nav-link(href='/categories') Categories
 							li.nav-item
 								a.nav-link(href='/items') Items
+		h1.page-title WORLD'S LARGEST PHONE STORE!!!!
 		block content
 	include footer.pug

@@ -1,0 +1,20 @@
+extends ../layout 
+
+block content
+    div.container.mt-5.mb-5
+        div.row 
+            div.col-sm.border
+                img(src=item.image alt=item.name style="width: 30rem;")
+            div.col-sm.border.bg-light
+                h1.mt-2 #{item.name} 
+                    span.badge(class=`badge-${item.description === "Available" ? 'success' : 'warning'}`) #{item.description}
+                span.badge.badge-danger(style="font-size:16px;") #{item.brand.name}
+                br
+                br
+                strong Number in stock:
+                span  #{item.numberInStock}
+                br
+                br
+                strong Price:
+                span  $#{item.price}
+
