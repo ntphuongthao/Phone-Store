@@ -1,6 +1,15 @@
 extends ../layout
 
 block content
+	.brands-car
+		img(src="images/abstract.jpg")
+		for brand in brands
+			a.brand-car-el(href=brand.url)
+				img(src=brand.image)
+		for brand in brands
+			a.brand-car-el(href=brand.url)
+				img(src=brand.image)
+
 	div.container
 		div.row.align-items-center
 			for brand in brands
