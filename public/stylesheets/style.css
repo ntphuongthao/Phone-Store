@@ -33,6 +33,16 @@ a {
   background-color: rgba(250, 250, 250, 0.2);
 }
 
+
+.item-hover {
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.item-hover:hover {
+  background-color: rgba(17, 17, 17, 0.2);
+}
+
 .page-title {
   text-align: center;
   padding: 10px 0;

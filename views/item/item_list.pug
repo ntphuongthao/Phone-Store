@@ -4,9 +4,9 @@ block content
     div.container
             div.row.justify-content-center
                 for item in items 
-                    div.col.container
+                    div.col.container.mt-2.mb-4
                         div.row.justify-content-center
-                            div.card.hover(style="width: 15rem;")
+                            div.card.item-hover(style="width: 15rem;")
                                 img.card-img-top(src=item.image alt="Phone")
                                 div.card-body
                                     a.card-title(href=item.url) #{item.name} 

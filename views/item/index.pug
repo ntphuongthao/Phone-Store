@@ -1,6 +1,7 @@
 extends ../layout
 
 block content
+	h1.mt-4.mb-2(style="text-align: center;") ALL BRANDS
 	.brands-car
 		img(src="images/abstract.jpg")
 		for brand in brands
@@ -10,15 +11,8 @@ block content
 			a.brand-car-el(href=brand.url)
 				img(src=brand.image)
 
-	div.container
-		div.row.align-items-center
-			for brand in brands
-				div.col
-					a(href=brand.url) 
-						img.col(src=brand.image style='width: 170px;')
 
-	br
-	br
+	h1.mt-4.mb-4(style="text-align: center;") ALL CATEGORIES
 	div.container
 		div.row.align-items-center
 			for category in categories 
@@ -30,13 +24,13 @@ block content
 	br
 	br
 
-
+	h1.mt-4.mb-4(style="text-align: center;") ALL ITEMS
 	div.container
 		div.row.justify-content-center
 			for item in items 
-				div.col.container
+				div.col.container.mt-2.mb-4
 					div.row.justify-content-center
-						div.card(style="width: 15rem;")
+						div.card.item-hover(style="width: 15rem;")
 							img.card-img-top(src=item.image alt="Phone")
 							div.card-body
 								a.card-title(href=item.url) #{item.name} 
