@@ -1,8 +1,9 @@
 extends ../layout
 
 block content
-    h1(style='text-align: center;') #{brand.name}
-
+    div(style="display: flex; justify-content: center;")
+        img(src=brand.image style="width: 15rem; border: 1px solid black; border-radius: 10px; cursor: pointer; padding: 16px;")
+    br
     if brand_items.length > 0
         div.container.mt-5.mb-5
             div.row 

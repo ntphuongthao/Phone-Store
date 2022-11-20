@@ -2,6 +2,7 @@ const Brand = require('../models/brand');
 const Item = require('../models/item');
 const async = require('async');
 const mongoose = require('mongoose');
+const { body, validationResult } = require('express-validator');
 
 exports.brand_list = (req, res, next) => {
     Brand.find({})
@@ -49,12 +50,43 @@ exports.brand_detail = (req, res, next) => {
 }
 
 exports.brand_create_get = (req, res, next) => {
-    res.send("NOT IMPLEMENTED: brand_create_get");
+    res.render("./brand/brand_form", {
+        title: "Create a new Brand",
+    });
 }
 
-exports.brand_create_post = (req, res, next) => {
-    res.send("NOT IMPLEMENTED: brand_create_post");
-}
+exports.brand_create_post = [
+    body("name")
+        .trim()
+        .isLength({ min: 1})
+        .withMessage("Name should be specified"),
+    body("image")
+        .trim()
+        .isLength({ min: 1 }),
+    (req, res, next) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.render("./brand/brand_form", {
+                title: "Create a new Brand",
+                errors: errors.array(),
+                brand: req.body,
+            })
+        }
+
+        const brand = new Brand({
+            name: req.body.name,
+            image: req.body.image
+        });
+
+        brand.save((err) => {
+            if (err) {
+                return next(err);
+            }
+            res.redirect(brand.url);
+        })
+    }
+]
 
 exports.brand_update_get = (req, res, next) => {
     res.send("NOT IMPLEMENTED: brand_update_get");

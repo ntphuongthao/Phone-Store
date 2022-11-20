@@ -2,6 +2,7 @@ const Category = require('../models/category');
 const Item = require('../models/item');
 const async = require('async');
 const mongoose = require('mongoose');
+const { body, validationResult } = require('express-validator');
 
 exports.category_list = (req, res, next) => {
     Category.find({})
@@ -48,12 +49,39 @@ exports.category_detail = (req, res, next) => {
 }
 
 exports.category_create_get = (req, res, next) => {
-    res.send("NOT IMPLEMENTED: category_create_get");
+    res.render("./category/category_form", {
+        title: "Create a new Category",
+    });
 }
 
-exports.category_create_post = (req, res, next) => {
-    res.send("NOT IMPLEMENTED: category_create_post");
-}
+exports.category_create_post = [
+    body("name")
+        .trim()
+        .isLength({ min: 1 })
+        .withMessage("Name must be specified"),
+    (req, res, next) => {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            res.render("./category/category_form", {
+                errors: errors.array(),
+                title: "Create a new Category",
+                category: req.body,
+            });
+        }
+
+        const category = new Category({
+            name: req.body.name
+        });
+
+        category.save((err) => {
+            if (err) {
+                return next(err);
+            }
+            res.redirect(err.url);
+        });
+    }
+];
 
 exports.category_update_get = (req, res, next) => {
     res.send("NOT IMPLEMENTED: category_update_get");
