@@ -1,0 +1,53 @@
+extends ../layout
+
+block content
+    h1= title
+
+    form(method='POST' action='')
+        div.form-group
+            label(for='name') Name:
+            input#name.form-control(type='text', placeholder='Name of Item' name='name' required='true' value=(undefined===item ? '' : item.name) )
+        
+        div.form-group
+            label(for='brand') Brand:
+            select#brand.form-control(type='select', placeholder='Select brand' name='brand' required='true' )
+                - brands.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+                for brand in brands
+                    if item
+                        option(value=brand._id selected=(brand._id.toString()===item.brand._id.toString() ? 'selected' : false) ) #{brand.name}
+                    else
+                        option(value=brand._id) #{brand.name}
+
+        div.form-group
+            label(for='category') Category:
+            select#category.form-control(type='select', placeholder='Select suitable category' name='category' required='true' )
+                - categories.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+                for category in categories
+                    option(value=category._id) #{category.name}
+
+
+        div.form-group
+            label(for='description') Description:
+            input#description.form-control(type='text', placeholder='Describe your item' name='description' value=(undefined===item ? '' : item.description) required='true')
+        
+        div.form-group
+            label(for='price') Price:
+            input#price.form-control(type='number', name='price' placeholder='Enter your price' value=(undefined===item ? '' : item.price))
+        
+        div.form-group
+            label(for='numberInStock') Number In Stock:
+            input#numberInStock.form-control(type='number' min="0" name='numberInStock' placeholder='Enter your quantity' value=(undefined===item ? '' : item.numberInStock))
+
+        div.form-group
+            label(for='image') Image Link:
+            input#image.form-control(type='text', placeholder='Your image link' name='image' required='true' value=(undefined===item ? '' : item.image) )
+        
+        
+        button.btn.btn-primary(type='submit') Submit
+    br
+    br
+
+    if errors
+        ul
+        for error in errors
+            li!= error.msg
